@@ -19,7 +19,7 @@ test.describe("D102: Visual Regression Testing", () => {
   });
 });
 
-test.describe("D103: Visual Testing with Masking", () => {
+test.describe("D102: Visual Testing with Masking", () => {
   test("should match the baseline while ignoring dynamic content", async ({ page }) => {
     await page.goto("/a16");
 
