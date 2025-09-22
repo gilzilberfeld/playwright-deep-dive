@@ -31,12 +31,25 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
+  
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        // for authentication
+        // storageState: 'playwright/.auth/user.json',
+      },
+      // for authentication
+      // dependencies: ['setup'],
     },
+    //  for authentication setup tests
+    // {
+    //   name: 'setup',
+    //   testMatch: /.*\.setup\.ts/,
+    // },
+   
 
     // {
     //   name: 'firefox',
