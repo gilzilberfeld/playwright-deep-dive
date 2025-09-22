@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("starting from scratch", async ({ page, request }) => {
-  let resetAPI = await request.post(`/a11/counter`, {
+  let resetAPI = await request.post(`/api/a11/counter`, {
     data: { newCounter: "0" },
   });
 
@@ -22,7 +22,7 @@ test("starting from scratch", async ({ page, request }) => {
 
 test.skip("resetting the counter", async ({ request, page }) => {
   const
-   resetAPI = await request.post(`/a11/counter`, {
+   resetAPI = await request.post(`/api/a11/counter`, {
     data: { newCounter: "5" },
   });
 

@@ -1,41 +1,100 @@
 "use client";
-
-import { Box, Button } from "@mui/material";
+import { Alert, Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function App11() {
-  const [counter, setCounter] = useState(0);
+  const [count, setCount] = useState<number | null>(0);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isClient, setIsClient] = useState(false);
+  // THE FIX: Add a new loading state specifically for the increment action.
+  const [isIncrementing, setIsIncrementing] = useState(false);
 
   useEffect(() => {
-    const getCounter = async () => {
-      const response = await fetch("/a11/counter");
-      const theCounter = await response.json();
-      setCounter(parseInt(theCounter.counter))
-    };
-    
-    getCounter();
-      }, []);
+    setIsClient(true);
+    fetchCount();
+  }, []);
 
-  function handleIncrement(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-    setCounter(counter + 1);
+  const fetchCount = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch("/api/a11/counter");
+      if (!response.ok) {
+        throw new Error("Failed to load counter");
+      }
+      const data = await response.json();
+      setCount(data.count);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const incrementCount = async () => {
+    // THE FIX: Set the incrementing state to true at the start.
+    setIsIncrementing(true);
+    setError(null);
+    try {
+      const response = await fetch("/api/a11/counter", { method: "POST", body: JSON.stringify({}) });
+      if (!response.ok) {
+        throw new Error("Failed to increment count");
+      }
+      const data = await response.json();
+      setCount(data.count);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      // THE FIX: Set the incrementing state to false at the end.
+      setIsIncrementing(false);
+    }
+  };
+
+  if (!isClient) {
+    return null;
   }
 
   return (
     <main className="flex min-h-screen flex-col items-center p-10">
-      <h1 className="p-2">App 11 - API Support</h1>
-      <Box component="section" className="bg-purple-200 w-2/3" sx={{ p: 2, border: "2px black" }}>
-        <div className="flex flex-col">
-          <div className="flex flex-row justify-between m-2 p-2">
-            <Button className="w-1/3" variant="contained" onClick={handleIncrement}>
-              Increment
-            </Button>
-            <label className="text-black py-2">{"Counter: " + counter}</label>
-          </div>
-          <div className="flex justify-center items-center"></div>
-        </div>
+      <Typography variant="h4" component="h1" gutterBottom>
+        API & Hybrid Testing
+      </Typography>
+
+      <Box
+        component="section"
+        sx={{
+          p: 2,
+          border: "1px solid grey",
+          borderRadius: 2,
+          bgcolor: "ghostwhite",
+          width: "66%",
+          textAlign: "center",
+          mt: 4,
+        }}
+      >
+        <Typography variant="h6" component="h2" sx={{ mb: 2, color: "text.primary" }}>
+          Counter
+        </Typography>
+        {isLoading ? (
+          <CircularProgress />
+        ) : error ? (
+          <Alert severity="error">{error}</Alert>
+        ) : (
+          <Typography variant="h3" data-testid="counter-value" component="p" sx={{ color: "text.primary" }}>
+            {count}
+          </Typography>
+        )}
+        <Button
+          variant="contained"
+          onClick={incrementCount}
+          sx={{ mt: 2 }}
+          // THE FIX: The button is now disabled during the initial load OR while incrementing.
+          disabled={isLoading || isIncrementing}
+        >
+          Increment
+        </Button>
       </Box>
-      <p className="m-3">In this app, clicking the Increment button, increments the counter.</p>
-      <p className="m-3">The initial value is read from the server.</p>
     </main>
   );
 }
