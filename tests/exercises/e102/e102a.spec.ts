@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 /*
   Refer to the "Demos and Exercises Guide" for the task details
-  for exercise E102.
+  for exercise E102a.
 */
 
 test.describe("E102: Visual Test with Masking", () => {

@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 /*
   Refer to the "Demos and Exercises Guide" for the task details
-  for exercise E103.
+  for exercise E102b.
 */
 
 test.describe("E103: Visual Test of Hover State", () => {

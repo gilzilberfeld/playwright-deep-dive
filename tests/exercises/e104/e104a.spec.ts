@@ -5,7 +5,7 @@ import { test, expect } from "@playwright/test";
   for exercise E105.
 */
 
-test.describe("E105: The Case of the Deceptive Class Name", () => {
+test.describe("E104a: The Case of the Deceptive Class Name", () => {
   test.skip("should submit the form", async ({ page }) => {
     await page.goto("/a20");
 

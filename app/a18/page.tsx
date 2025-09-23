@@ -14,7 +14,7 @@ export default function App18() {
     // Introduce a slight delay to simulate a real-world scenario
     setTimeout(() => {
       setIsChecked(event.target.checked);
-    }, 200);
+    }, 500);
   };
 
   // By returning null until isClient is true, we prevent the hydration mismatch.

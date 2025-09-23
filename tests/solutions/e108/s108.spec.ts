@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 // We still use .serial to ensure these stateful tests don't run at the same
 // time as each other.
-test.describe.serial('S112: API State Reset', () => {
+test.describe.serial('S108: API State Reset', () => {
   // The beforeEach hook is still the right place to reset state.
   test.beforeEach(async ({ request }) => {
     const response = await request.post('/api/a11/counter', {

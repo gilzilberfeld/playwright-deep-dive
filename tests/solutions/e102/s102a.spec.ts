@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("S102: Visual Test with Masking", () => {
+test.describe("S102a: Visual Test with Masking", () => {
   test("the product card should be visually correct, ignoring the description", async ({ page }) => {
     await page.goto("/a16");
 

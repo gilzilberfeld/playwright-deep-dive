@@ -1,7 +1,7 @@
 // We import our custom 'test' object instead of the one from '@playwright/test'.
 import { test, expect } from '../../fixtures/fixtures';
 
-test.describe('D110: Using an Authentication Fixture', () => {
+test.describe('D108b: Using an Authentication Fixture', () => {
   // By using the 'standardUserPage' fixture, this test now clearly declares
   // its dependency on being logged in as a standard user.
   // The global setup in playwright.config.ts is no longer needed for this test.

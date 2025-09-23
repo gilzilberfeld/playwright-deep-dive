@@ -8,7 +8,7 @@ import { test, expect } from '@playwright/test';
 // This test currently relies on the global setup in playwright.config.ts
 // and the --project flag to run correctly. Your task is to refactor it
 // to use the custom fixtures we've created.
-test.describe('E115: Refactoring Challenge', () => {
+test.describe('E110: Refactoring Challenge', () => {
   test('standard user should see the inventory', async ({ page }) => {
     await page.goto('https://www.saucedemo.com/inventory.html');
     await expect(page.locator('.inventory_list')).toBeVisible();

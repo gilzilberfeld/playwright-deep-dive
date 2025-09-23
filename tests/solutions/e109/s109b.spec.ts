@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('S113: Mocking a Slow Network to Test Loading States', () => {
+test.describe('S109b: Mocking a Slow Network to Test Loading States', () => {
   test('should display the loading spinner while waiting for the API', async ({
     page,
   }) => {

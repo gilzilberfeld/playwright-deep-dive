@@ -2,10 +2,10 @@ import { test, expect } from '@playwright/test';
 
 /*
   Refer to the "Demos and Exercises Guide" for the task details
-  for exercise E112.
+  for exercise E108.
 */
 
-test.describe('E112: API State Reset', () => {
+test.describe('E108: API State Reset', () => {
   
   test('should display a count of 0 on first load', async ({ page }) => {
   });

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("S104: File Upload Error Handling", () => {
+test.describe("S103: File Upload Error Handling", () => {
   test("should display an error when uploading a file that is too large", async ({ page }) => {
     await page.goto("/a17");
 

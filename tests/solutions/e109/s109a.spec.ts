@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('S114: Mocking an Empty API Response', () => {
+test.describe('S109a: Mocking an Empty API Response', () => {
   test('should display the "No products found" message', async ({ page }) => {
     // We use page.route() to intercept the GET request to the products API.
     await page.route('/api/a21/products', async (route) => {
