@@ -1,9 +1,8 @@
-"use client";
+'use client';
 
-import { Box, Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
-import { useState } from "react";
+import { Box, Button, Checkbox, FormControlLabel, FormGroup, Container, Card, CardContent, Typography, Stack } from "@mui/material";
+import { useState, SyntheticEvent } from "react";
 
-let message: string;
 export default function App5() {
   const [firstChecked, setFirstChecked] = useState(false);
   const [secondChecked, setSecondChecked] = useState(false);
@@ -24,12 +23,12 @@ export default function App5() {
     setClearBothDisabled(true);
   }
 
-  function handleFirst(event: React.SyntheticEvent<Element, Event>, checked: boolean): void {
+  function handleFirst(event: SyntheticEvent<Element, Event>, checked: boolean): void {
     setFirstChecked(checked);
     setStateForButtons(checked, secondChecked);
   }
 
-  function handleSecond(event: React.SyntheticEvent<Element, Event>, checked: boolean): void {
+  function handleSecond(event: SyntheticEvent<Element, Event>, checked: boolean): void {
     setSecondChecked(checked);
     setStateForButtons(checked, firstChecked);
   }
@@ -53,29 +52,36 @@ export default function App5() {
     }
   }
 
-
   return (
-    <main className="flex min-h-screen flex-col items-center p-10">
-      <h1 className="p-2">App 5 - Checkboxes</h1>
-      <Box component="section" className="bg-purple-200" sx={{ p: 2, border: "2px black" }}>
-        <div className="flex flex-col">
-          <FormGroup>
-            <div className="w-full flex flex-row justify-between m-4 px-14">
-              <FormControlLabel className="text-black" control={<Checkbox checked={firstChecked} />} onChange={handleFirst} label="Check 1" />
-              <FormControlLabel className="text-black" control={<Checkbox checked={secondChecked} />} onChange={handleSecond} label="Check 2" />
-            </div>
-          </FormGroup>
-          <div className="flex justify-between items-center">
-            <Button className="w-1/3" variant="contained" disabled={selectBothDisabled} onClick={handleSelectBoth}>
-              Select Both
-            </Button>
-            <Button className="w-1/3" variant="contained" disabled={clearBothDisabled} onClick={handleClearBoth}>
-              Clear Both
-            </Button>
-          </div>
-        </div>
+    <Container maxWidth="sm">
+      <Box sx={{ my: 4 }}>
+        <Card>
+          <CardContent>
+            <Stack spacing={2}>
+              <Typography variant="h4" component="h1" gutterBottom>
+                App 5 - Checkboxes
+              </Typography>
+              <FormGroup>
+                <Stack direction="row" spacing={2} justifyContent="space-around">
+                  <FormControlLabel control={<Checkbox checked={firstChecked} />} onChange={handleFirst} label="Check 1" />
+                  <FormControlLabel control={<Checkbox checked={secondChecked} />} onChange={handleSecond} label="Check 2" />
+                </Stack>
+              </FormGroup>
+              <Stack direction="row" spacing={2} justifyContent="space-around">
+                <Button variant="contained" disabled={selectBothDisabled} onClick={handleSelectBoth}>
+                  Select Both
+                </Button>
+                <Button variant="contained" disabled={clearBothDisabled} onClick={handleClearBoth}>
+                  Clear Both
+                </Button>
+              </Stack>
+              <Typography variant="body1" sx={{ mt: 2 }}>
+                In this app, you can select either checkbox, or use the buttons to check or clear both. The state of the checkboxes affects the state of the buttons.
+              </Typography>
+            </Stack>
+          </CardContent>
+        </Card>
       </Box>
-      <p className="m-3">In this app, you can select either checkbox, or use the buttons to check or clear both. The state of the checkboxes affects the state of the buttons.</p>
-    </main>
+    </Container>
   );
 }
