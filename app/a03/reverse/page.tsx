@@ -1,34 +1,49 @@
-"use client";
-import { ChangeEvent, Suspense, useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
-import { useRouter, useSearchParams } from "next/navigation";
+'use client';
+
+import { Suspense } from "react";
+import { Box, Container, Card, CardContent, Typography, Stack } from "@mui/material";
+import { useSearchParams } from "next/navigation";
 
 function Message() {
-  let message: string;
   const searchParams = useSearchParams();
   const theInput = searchParams.get("input");
-  if (theInput != null) {
-    const theReverse = theInput.split("").reverse().join("");
-    message = 'The reverse of "' + theInput + '" is "' + theReverse + '"';
-  } else message = 'The reverse of "null" is "llun"';
+  const message = theInput
+    ? `The reverse of "${theInput}" is "${theInput.split("").reverse().join("")}"`
+    : 'The reverse of "null" is "llun"';
 
-  return <p className="text-blue-400 text-center m-2">{message}</p>;
+  return (
+    <Typography color="primary" align="center" sx={{ m: 2 }}>
+      {message}
+    </Typography>
+  );
 }
 
 export default function Demo3Reverse() {
   return (
-    <main className="flex min-h-screen flex-col items-center p-10">
-      <h1 className="p-2">Demo 3 - The Reverse</h1>
-      <Box component="section" className="bg-purple-200" sx={{ p: 2, border: "2px black" }}>
-        <div className="flex flex-col">
-          <h1 className="text-blue-500  font-bold text-center m-2">Welcome to the Reverse page!</h1>
-          <Suspense>
-            <Message />
-          </Suspense>
-        </div>
+    <Container maxWidth="sm">
+      <Box sx={{ my: 4 }}>
+        <Card>
+          <CardContent>
+            <Stack spacing={2}>
+              <Typography variant="h4" component="h1" gutterBottom>
+                Demo 3 - The Reverse
+              </Typography>
+              <Typography variant="h5" component="h2" color="primary" align="center" sx={{ fontWeight: 'bold' }}>
+                Welcome to the Reverse page!
+              </Typography>
+              <Suspense>
+                <Message />
+              </Suspense>
+              <Typography variant="body1" sx={{ mt: 2 }}>
+                In this demo, clicking the button causes navigation to another page.
+              </Typography>
+              <Typography variant="body1">
+                The test checks the URL and text of the next page, check url.
+              </Typography>
+            </Stack>
+          </CardContent>
+        </Card>
       </Box>
-      <p className="m-3">In this demo, clicking the button causes navigation to another page.</p>
-      <p className="m-3">The test checks the URL and text of the next page, check url.</p>
-    </main>
+    </Container>
   );
 }

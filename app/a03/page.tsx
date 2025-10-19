@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
 import { ChangeEvent, useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
-import { useRouter } from 'next/navigation'
+import { Box, Button, TextField, Container, Card, CardContent, Typography, Stack } from "@mui/material";
+import { useRouter } from 'next/navigation';
 
 export default function App3() {
   const [theInput, setInput] = useState("");
-  const router = useRouter()
+  const router = useRouter();
 
   function handleReverse(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-    router.push('/a03/reverse?input=' + theInput)
+    router.push('/a03/reverse?input=' + theInput);
   }
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
@@ -17,22 +17,30 @@ export default function App3() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-10">
-      <h1 className="p-2">App 3 - Navigation</h1>
-      <Box component="section" className="bg-purple-200" sx={{ p: 2, border: "2px black" }}>
-        <div className="flex flex-col">
-          <div className="flex flex-row justify-center m-4 px-4">
-            <TextField className="w-1/3 p-2" label="Input" variant="outlined" onChange={handleInputChange}></TextField>
-          </div>
-          <div className="flex justify-center items-center">
-            <Button className="w-1/2" variant="contained" onClick={handleReverse}>
-              Go to reverse page
-            </Button>
-          </div>
-        </div>
+    <Container maxWidth="sm">
+      <Box sx={{ my: 4 }}>
+        <Card>
+          <CardContent>
+            <Stack spacing={2}>
+              <Typography variant="h4" component="h1" gutterBottom>
+                App 3 - Navigation
+              </Typography>
+              <Stack spacing={2} alignItems="center">
+                <TextField label="Input" variant="outlined" onChange={handleInputChange} sx={{ width: '66%' }} />
+                <Button variant="contained" onClick={handleReverse}>
+                  Go to reverse page
+                </Button>
+              </Stack>
+              <Typography variant="body1" sx={{ mt: 2 }}>
+                In this app, clicking the button causes navigation to another page.
+              </Typography>
+              <Typography variant="body1">
+                The test checks the URL and text of the next page, check url.
+              </Typography>
+            </Stack>
+          </CardContent>
+        </Card>
       </Box>
-      <p className="m-3">In this app, clicking the button causes navigation to another page.</p>
-      <p className="m-3">The test checks the URL and text of the next page, check url.</p>
-    </main>
+    </Container>
   );
 }

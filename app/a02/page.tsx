@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
 import { ChangeEvent, useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Container, Card, CardContent, Typography, Stack } from "@mui/material";
 
 let message: string;
 export default function App2() {
@@ -10,16 +10,14 @@ export default function App2() {
   const [lastName, setLastName] = useState("");
 
   function handleCheck(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-    if (firstName.length == 0) {
+    if (firstName.length === 0 && lastName.length === 0) {
+      message = "Both values are missing";
+      setErrorVisible(true);
+    } else if (firstName.length === 0) {
       message = "First name is missing";
       setErrorVisible(true);
-    }
-    if (lastName.length == 0) {
+    } else if (lastName.length === 0) {
       message = "Last name is missing";
-      setErrorVisible(true);
-    }
-    if (firstName.length == 0 && lastName.length == 0) {
-      message = "Both values are missing";
       setErrorVisible(true);
     }
   }
@@ -35,26 +33,41 @@ export default function App2() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-10">
-      <h1 className="p-2">App 2 - Dynamic Element</h1>
-      <Box component="section" className="bg-purple-200" sx={{ p: 2, border: "2px black" }}>
-        <div className="flex flex-col">
-          <div className="flex flex-row justify-between m-4 px-4">
-            <TextField className="w-1/3 p-2" label="First name" variant="outlined" onChange={handleFirstNameChange}></TextField>
-            <TextField className="w-1/3 p-2" label="Last name" variant="outlined" onChange={handleLastNameChange}></TextField>
-          </div>
-          <div className="flex justify-center items-center">
-            <Button className="w-1/3" variant="contained" onClick={handleCheck}>
-              Check
-            </Button>
-          </div>
-          <div className="text-red-500 font-bold text-center m-2">
-            {errorVisible ? message : ""}</div>
-        </div>
+    <Container maxWidth="sm">
+      <Box sx={{ my: 4 }}>
+        <Card>
+          <CardContent>
+            <Stack spacing={2}>
+              <Typography variant="h4" component="h1" gutterBottom>
+                App 2 - Dynamic Element
+              </Typography>
+              <Stack direction="row" spacing={2} justifyContent="space-between">
+                <TextField label="First name" variant="outlined" onChange={handleFirstNameChange} sx={{ width: '50%' }} />
+                <TextField label="Last name" variant="outlined" onChange={handleLastNameChange} sx={{ width: '50%' }} />
+              </Stack>
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Button variant="contained" onClick={handleCheck}>
+                  Check
+                </Button>
+              </Box>
+              {errorVisible && (
+                <Typography color="error" align="center" sx={{ fontWeight: 'bold' }}>
+                  {message}
+                </Typography>
+              )}
+              <Typography variant="body1" sx={{ mt: 2 }}>
+                In this app, clicking the button checks that both boxes are not empty.
+              </Typography>
+              <Typography variant="body1">
+                The test navigates to this page, clicks on the button, checks that the error is displayed.
+              </Typography>
+              <Typography variant="body1">
+                Then it types to clear the error and checks it disappeared.
+              </Typography>
+            </Stack>
+          </CardContent>
+        </Card>
       </Box>
-      <p className="m-3">In this app, clicking the button checks that both boxes are not empty.</p>
-      <p className="m-3">The test navigates to this page, clicks on the button, checks that the error is displayed.</p>
-      <p className="m-3"> The it types to clear the error and checks it disappeared</p>
-    </main>
+    </Container>
   );
 }

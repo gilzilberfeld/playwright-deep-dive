@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
 import { ChangeEvent, useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Container, Card, CardContent, Typography, Stack } from "@mui/material";
 
 export default function App1() {
   const [isEnabled, setEnabled] = useState(false);
   const [theInput, setInput] = useState("");
-  const [theResult, setResult] = useState("Waiting...")
+  const [theResult, setResult] = useState("Waiting...");
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>): void {
     const inputLength = event.target.value.length;
-    if (inputLength == 0) {
+    if (inputLength === 0) {
       setEnabled(false);
     } else {
       setEnabled(true);
@@ -18,38 +18,48 @@ export default function App1() {
     setInput(event.target.value);
   }
 
-    function handleReverse(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-        const reverse = theInput.split("").reverse().join("")
-        setResult(reverse)
-    }
+  function handleReverse(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+    const reverse = theInput.split("").reverse().join("");
+    setResult(reverse);
+  }
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-10">
-      <h1 className="p-2">App 1 - Simple Test</h1>
-      <Box component="section" className="bg-purple-200" sx={{ p: 2, border: "2px black" }}>
-        <div className="flex flex-col">
-          <div className="flex flex-row justify-between m-2 p-2">
-            <TextField className="w-1/3" id="input" label="Input" placeholder="Input a string" variant="outlined" onChange={handleInputChange}></TextField>
-            <TextField
-              className="w-1/3"
-              id="result"
-              label="Result"
-              defaultValue={theResult}
-              variant="outlined"
-              InputProps={{
-                readOnly: true,
-              }}
-            ></TextField>
-          </div>
-          <div className="flex justify-center items-center">
-            <Button className="w-1/3" disabled={isEnabled ? false : true} variant="contained" onClick={handleReverse}>
-              Reverse!
-            </Button>
-          </div>
-        </div>
+    <Container maxWidth="sm">
+      <Box sx={{ my: 4 }}>
+        <Card>
+          <CardContent>
+            <Stack spacing={2}>
+              <Typography variant="h4" component="h1" gutterBottom>
+                App 1 - Simple Test
+              </Typography>
+              <Stack direction="row" spacing={2} justifyContent="space-between">
+                <TextField id="input" label="Input" placeholder="Input a string" variant="outlined" onChange={handleInputChange} sx={{ width: '50%' }} />
+                <TextField
+                  id="result"
+                  label="Result"
+                  value={theResult}
+                  variant="outlined"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  sx={{ width: '50%' }}
+                />
+              </Stack>
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Button disabled={!isEnabled} variant="contained" onClick={handleReverse}>
+                  Reverse!
+                </Button>
+              </Box>
+              <Typography variant="body1" sx={{ mt: 2 }}>
+                In this app, clicking the button reverses the input string.
+              </Typography>
+              <Typography variant="body1">
+                The test navigates to this page, fills the data in the input box (which enables the button), and validates the result.
+              </Typography>
+            </Stack>
+          </CardContent>
+        </Card>
       </Box>
-      <p className="m-3">In this app, clicking the button reverses the input string.</p>
-      <p className="m-3">The test navigates to this page, fills the data in the input box (which enables the button), and validates the result.</p>
-    </main>
+    </Container>
   );
 }
