@@ -1,5 +1,6 @@
 "use client";
-import { Alert, Box, Button, CircularProgress, Typography } from "@mui/material";
+
+import { Alert, Box, Button, CircularProgress, Typography, Container, Card, CardContent, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function App11() {
@@ -56,45 +57,33 @@ export default function App11() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-10">
-      <Typography variant="h4" component="h1" gutterBottom>
-        API & Hybrid Testing
-      </Typography>
-
-      <Box
-        component="section"
-        sx={{
-          p: 2,
-          border: "1px solid grey",
-          borderRadius: 2,
-          bgcolor: "ghostwhite",
-          width: "66%",
-          textAlign: "center",
-          mt: 4,
-        }}
-      >
-        <Typography variant="h6" component="h2" sx={{ mb: 2, color: "text.primary" }}>
-          Counter
-        </Typography>
-        {isLoading ? (
-          <CircularProgress />
-        ) : error ? (
-          <Alert severity="error">{error}</Alert>
-        ) : (
-          <Typography variant="h3" data-testid="counter-value" component="p" sx={{ color: "text.primary" }}>
-            {count}
-          </Typography>
-        )}
-        <Button
-          variant="contained"
-          onClick={incrementCount}
-          sx={{ mt: 2 }}
-          // THE FIX: The button is now disabled during the initial load OR while incrementing.
-          disabled={isLoading || isIncrementing}
-        >
-          Increment
-        </Button>
+    <Container maxWidth="sm">
+      <Box sx={{ my: 4 }}>
+        <Card>
+          <CardContent>
+            <Stack spacing={2} alignItems="center">
+              <Typography variant="h4" component="h1" gutterBottom>
+                API & Hybrid Testing
+              </Typography>
+              <Typography variant="h6" component="h2">
+                Counter
+              </Typography>
+              {isLoading ? (
+                <CircularProgress />
+              ) : error ? (
+                <Alert severity="error">{error}</Alert>
+              ) : (
+                <Typography variant="h3" data-testid="counter-value" component="p">
+                  {count}
+                </Typography>
+              )}
+              <Button variant="contained" onClick={incrementCount} disabled={isLoading || isIncrementing}>
+                Increment
+              </Button>
+            </Stack>
+          </CardContent>
+        </Card>
       </Box>
-    </main>
+    </Container>
   );
 }

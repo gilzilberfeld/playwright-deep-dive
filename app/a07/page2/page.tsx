@@ -1,9 +1,10 @@
-"use client";
-import { Box, Button, TextField } from "@mui/material";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+'use client';
 
-export default function App72() {
+import { Box, Button, TextField, Container, Card, CardContent, Typography, Stack } from "@mui/material";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useState, ChangeEvent } from "react";
+
+function PageContent() {
   const searchParams = useSearchParams();
   const firstPageText = searchParams.get("input");
 
@@ -14,33 +15,41 @@ export default function App72() {
     router.push("/a07/page3?input=" + firstPageText + theInput);
   }
 
-  function handleInputChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
+  function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     setInput(event.target.value);
   }
 
-  function fromPage1(): import("react").ReactNode {
-    return "From Page 1: " + firstPageText;
-  }
+  return (
+    <Container maxWidth="sm">
+      <Box sx={{ my: 4 }}>
+        <Card>
+          <CardContent>
+            <Stack spacing={2}>
+              <Typography variant="h4" component="h1" gutterBottom>
+                App 7 - Navigation: Page 2
+              </Typography>
+              <Typography>From Page 1: {firstPageText}</Typography>
+              <Stack spacing={2} alignItems="center">
+                <TextField label="Input" variant="outlined" onChange={handleInputChange} sx={{ width: '66%' }} />
+                <Button variant="contained" onClick={handleClick}>
+                  Go to page 3
+                </Button>
+              </Stack>
+              <Typography variant="body1" sx={{ mt: 2 }}>
+                In this app, clicking the buttons propagate the information from page to page.
+              </Typography>
+            </Stack>
+          </CardContent>
+        </Card>
+      </Box>
+    </Container>
+  );
+}
 
+export default function App72() {
   return (
     <Suspense>
-      <main className="flex min-h-screen flex-col items-center p-10">
-        <h1 className="p-2">App 7 - Navigation: Page 2</h1>
-        <Box component="section" className="bg-purple-200" sx={{ p: 2, border: "2px black" }}>
-          <div className="flex flex-col">
-            <label className="text-black">{fromPage1()}</label>
-            <div className="flex flex-row justify-center m-4 px-4">
-              <TextField className="w-1/3 p-2" label="Input" variant="outlined" onChange={handleInputChange}></TextField>
-            </div>
-            <div className="flex justify-center items-center">
-              <Button className="w-1/2" variant="contained" onClick={handleClick}>
-                Go to page 3
-              </Button>
-            </div>
-          </div>
-        </Box>
-        <p className="m-3">In this app, clicking the buttons propagate the information from page to page.</p>
-      </main>
+      <PageContent />
     </Suspense>
   );
 }

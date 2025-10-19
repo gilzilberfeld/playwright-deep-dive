@@ -1,14 +1,25 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { Box, Container, Card, CardContent, Typography, Stack } from "@mui/material";
 
-export default function App1() {
-
+export default function App9() {
   return (
-    <main className="flex min-h-screen flex-col items-center p-10">
-      <h1 className="p-2">App 9 - Frames</h1>
-      <p className="m-3">In this app, an iframe contains App1 (a01).</p>
-      <iframe src="/a01" width="400" height="600" title="The Frame" />
-    </main>
+    <Container maxWidth="sm">
+      <Box sx={{ my: 4 }}>
+        <Card>
+          <CardContent>
+            <Stack spacing={2} alignItems="center">
+              <Typography variant="h4" component="h1" gutterBottom>
+                App 9 - Frames
+              </Typography>
+              <Typography variant="body1" sx={{ mt: 2 }}>
+                In this app, an iframe contains App1 (a01).
+              </Typography>
+              <iframe src="/a01" width="400" height="600" title="The Frame" style={{ border: 'none' }} />
+            </Stack>
+          </CardContent>
+        </Card>
+      </Box>
+    </Container>
   );
 }
