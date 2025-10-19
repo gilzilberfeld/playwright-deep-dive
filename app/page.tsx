@@ -1,81 +1,115 @@
+'use client';
 
-function createData(name: string, app1: string, link1: string, app2: string, link2: string) {
-  return { name, app1, link1, app2, link2 };
+import * as React from 'react';
+import Link from 'next/link';
+import { Box, Tab, Tabs, Grid, Card, CardContent, Typography, CardActions, Button } from '@mui/material';
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
 }
 
-const rows = [
-  createData("row1", "1. First test", "/a01", "2. Dynamic elements", "/a02"),
-  createData("row2", "3. Navigation", "/a03", "4. Locators", "/a04"),
-  createData("row3", "5. Checkboxes", "/a05", "6. Drop down list", "/a06"),
-  createData("row4", "7. Navigation II", "/a07", "8. Chat", "/a08"),
-  createData("row5", "9. Frames", "/a09", "10. Change-A-Frame", "/a10"),
-  createData("row6", "11. API", "/a11", "12. API II", "/a12"),
-];
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
 
-export default function Home() {
   return (
-    <main className="flex flex-col items-center p-5">
-      <h1 className="p-2">The Apps Menu</h1>
-      <div className="w-1/2">
-        <table>
-          <thead>
-            <tr className="bg-teal-200">
-              <th align="center">App name</th>
-              <th align="center">Link</th>
-              <th align="center">App name</th>
-              <th align="center">Link</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.name}>
-                <td align="left" className="text-black bg-purple-100 w-1/4">
-                  {row.app1}
-                </td>
-                <td align="center" className="text-blue-400 underline bg-purple-100">
-                  <a href={row.link1}>{row.link1}</a>
-                </td>
-                <td align="left" className="text-black bg-purple-200 w-1/4">
-                  {row.app2}
-                </td>
-                <td align="center" className="text-blue-400 underline bg-purple-200">
-                  <a href={row.link2}>{row.link2}</a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p className="p-2">If you don&apos;t remember where you need to go, return here.</p>
-    </main>
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          {children}
+        </Box>
+      )}
+    </div>
   );
 }
 
-/*
-<div className="w-1/2">
-  <table>
-    <thead>
-      <tr className="bg-teal-200">
-        <th align="center">App name</th>
-        <th align="center">Link</th>
-        <th align="center">App name</th>
-        <th align="center">Link</th>
-      </tr>
-    </thead>
-    <tbody>
-      {rows.map((row) => (
-        <tr key={row.name}>
-          <td align="left" className="bg-purple-100 w-1/4">{row.app1}</td>
-          <td align="center" className="bg-purple-100">
-            <a href={row.link1}>{row.link1}</a>
-          </td>
-          <td align="left" className="bg-purple-200 w-1/4">{row.app2}</td>
-          <td align="center" className="bg-purple-200">
-            <a href={row.link2}>{row.link2}</a>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
-*/
+const advancedContent = [
+    { href: '/a14', title: 'a14 - Advanced Navigation', description: 'An advanced navigation scenario with a loading indicator.' },
+    { href: '/a15', title: 'a15 - Visual Regression Testing', description: 'A static component card for basic snapshot testing.' },
+    { href: '/a16', title: 'a16 - Visual Testing with Dynamic Content', description: 'A component with editable text for testing snapshot masking.' },
+    { href: '/a17', title: 'a17 - File Uploads & Downloads', description: 'A page for testing file uploads and downloads.' },
+    { href: '/a18', title: 'a18 - State-Based Debugging Challenge', description: 'A page with a checkbox that enables a button after a delay.' },
+    { href: '/a19', title: 'a19 - Simple Form', description: 'A page that fetches and displays a list of items from an API.' },
+    { href: '/a20', title: 'a20 - Deceptive Locator Challenge', description: 'A simple page with a tricky class name for a debugging exercise.' },
+    { href: '/a21', title: 'a21 - API Mocking: List States', description: 'A page with a success message that appears and then disappears.' },
+];
+
+const basicContent = [
+    { href: '/a01', title: 'a01 - Simple Test', description: 'Basic assertions.' },
+    { href: '/a02', title: 'a02 - Dynamic Element', description: 'Waiting for elements to appear.' },
+    { href: '/a03', title: 'a03 - Navigation', description: 'Form input and interaction.' },
+    { href: '/a04', title: 'a04 - Locators', description: 'Handling links that open new tabs.' },
+    { href: '/a05', title: 'a05 - Checkboxes', description: 'Interacting with select elements.' },
+    { href: '/a06', title: 'a06 - Drop Down List', description: 'Interacting with content inside an iframe.' },
+    { href: '/a07', title: 'a07 - Navigation: Page 1', description: 'Basic multi-page navigation.' },
+    { href: '/a11', title: 'a11 - API & Hybrid Testing', description: 'A simple UI that interacts with an API.' },
+    { href: '/a12', title: 'a12 - API Exercise', description: 'A basic e-commerce flow.' },
+];
+
+export default function HomePage() {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+          <Tab label="Advanced" />
+          <Tab label="Basic" />
+        </Tabs>
+      </Box>
+      <TabPanel value={value} index={0}>
+        <Grid container spacing={2}>
+          {advancedContent.map((item) => (
+            <Grid item xs={12} sm={6} md={4} key={item.href}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h5" component="div">
+                    {item.title}
+                  </Typography>
+                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    {item.description}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button component={Link} href={item.href} size="small">Go to Page</Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Grid container spacing={2}>
+          {basicContent.map((item) => (
+            <Grid item xs={12} sm={6} md={4} key={item.href}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h5" component="div">
+                    {item.title}
+                  </Typography>
+                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    {item.description}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button component={Link} href={item.href} size="small">Go to Page</Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </TabPanel>
+    </Box>
+  );
+}
