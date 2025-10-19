@@ -1,5 +1,6 @@
-"use client";
-import { Alert, Box, CircularProgress, List, ListItem, ListItemText, Typography } from "@mui/material";
+'use client';
+
+import { Alert, Box, CircularProgress, List, ListItem, ListItemText, Typography, Container, Card, CardContent, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 
 interface Product {
@@ -31,43 +32,36 @@ export default function App21() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-10">
-      <Typography variant="h4" component="h1" gutterBottom>
-        API Mocking: List States
-      </Typography>
-
-      <Box
-        component="section"
-        sx={{
-          p: 2,
-          border: "1px solid grey",
-          borderRadius: 2,
-          bgcolor: "ghostwhite",
-          width: "66%",
-          mt: 4,
-        }}
-      >
-        <Typography variant="h6" component="h2" sx={{ mb: 2, color: "text.primary", textAlign: "center" }}>
-          Product List
-        </Typography>
-        {isLoading ? (
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <CircularProgress />
-          </Box>
-        ) : error ? (
-          <Alert severity="error">{error}</Alert>
-        ) : products.length > 0 ? (
-          <List>
-            {products.map((product) => (
-              <ListItem key={product.id}>
-                <ListItemText primary={product.name} sx={{ color: "text.primary" }} />
-              </ListItem>
-            ))}
-          </List>
-        ) : (
-          <Typography sx={{ textAlign: "center", color: "text.secondary" }}>No products found.</Typography>
-        )}
+    <Container maxWidth="sm">
+      <Box sx={{ my: 4 }}>
+        <Card>
+          <CardContent>
+            <Stack spacing={2} alignItems="center">
+              <Typography variant="h4" component="h1" gutterBottom>
+                API Mocking: List States
+              </Typography>
+              <Typography variant="h6" component="h2">
+                Product List
+              </Typography>
+              {isLoading ? (
+                <CircularProgress />
+              ) : error ? (
+                <Alert severity="error">{error}</Alert>
+              ) : products.length > 0 ? (
+                <List>
+                  {products.map((product) => (
+                    <ListItem key={product.id}>
+                      <ListItemText primary={product.name} />
+                    </ListItem>
+                  ))}
+                </List>
+              ) : (
+                <Typography color="text.secondary">No products found.</Typography>
+              )}
+            </Stack>
+          </CardContent>
+        </Card>
       </Box>
-    </main>
+    </Container>
   );
 }

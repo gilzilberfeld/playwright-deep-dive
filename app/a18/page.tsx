@@ -1,5 +1,6 @@
 "use client";
-import { Box, Button, Checkbox, FormControlLabel, Typography } from "@mui/material";
+
+import { Box, Button, Checkbox, FormControlLabel, Typography, Container, Card, CardContent, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function App18() {
@@ -23,28 +24,22 @@ export default function App18() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-10">
-      <Typography variant="h4" component="h1" gutterBottom>
-        State-Based Debugging Challenge
-      </Typography>
-
-      <Box
-        component="section"
-        sx={{
-          p: 2,
-          border: "1px solid grey",
-          borderRadius: 2,
-          bgcolor: "ghostwhite",
-          width: "66%",
-          textAlign: "center",
-          mt: 4,
-        }}
-      >
-        <FormControlLabel control={<Checkbox onChange={handleCheckboxChange} />} label="I agree to the terms and conditions" sx={{ color: "text.primary" }} />
-        <Button variant="contained" disabled={!isChecked} sx={{ mt: 2, display: "block", mx: "auto" }}>
-          Submit
-        </Button>
+    <Container maxWidth="sm">
+      <Box sx={{ my: 4 }}>
+        <Card>
+          <CardContent>
+            <Stack spacing={2} alignItems="center">
+              <Typography variant="h4" component="h1" gutterBottom>
+                State-Based Debugging Challenge
+              </Typography>
+              <FormControlLabel control={<Checkbox onChange={handleCheckboxChange} />} label="I agree to the terms and conditions" />
+              <Button variant="contained" disabled={!isChecked}>
+                Submit
+              </Button>
+            </Stack>
+          </CardContent>
+        </Card>
       </Box>
-    </main>
+    </Container>
   );
 }

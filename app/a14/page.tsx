@@ -1,5 +1,6 @@
 "use client";
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+
+import { Box, Button, CircularProgress, Typography, Container, Card, CardContent, Stack } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -26,33 +27,28 @@ export default function App14() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-10">
-      <Typography variant="h4" component="h1" gutterBottom>
-        App 14 - Advanced Navigation
-      </Typography>
-      <Box
-        component="section"
-        sx={{
-          p: 2,
-          border: "1px solid grey",
-          borderRadius: 2,
-          bgcolor: "ghostwhite",
-          width: "66%",
-        }}
-      >
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, m: 2 }}>
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            <Button variant="contained" onClick={handleClick}>
-              Go to Page 2 (with delay)
-            </Button>
-          )}
-        </Box>
+    <Container maxWidth="sm">
+      <Box sx={{ my: 4 }}>
+        <Card>
+          <CardContent>
+            <Stack spacing={2} alignItems="center">
+              <Typography variant="h4" component="h1" gutterBottom>
+                App 14 - Advanced Navigation
+              </Typography>
+              {loading ? (
+                <CircularProgress />
+              ) : (
+                <Button variant="contained" onClick={handleClick}>
+                  Go to Page 2 (with delay)
+                </Button>
+              )}
+              <Typography variant="body1" sx={{ mt: 2 }}>
+                This page demonstrates a navigation that includes a loading state.
+              </Typography>
+            </Stack>
+          </CardContent>
+        </Card>
       </Box>
-      <Typography variant="body1" sx={{ mt: 2 }}>
-        This page demonstrates a navigation that includes a loading state.
-      </Typography>
-    </main>
+    </Container>
   );
 }
