@@ -1,0 +1,50 @@
+# Gitpod configuration for the Playwright Deep Dive Workshop
+# This file automates the setup for attendees (Plan A).
+
+tasks:
+  - name: Install & Run App
+    # init: Runs before the workspace is opened.
+    # Installs all node modules and Playwright browsers.
+    init: |
+      npm install
+      npx playwright install --with-deps
+    # command: Runs when the workspace is opened.
+    # Starts the Next.js application.
+    command: |
+      echo "Starting Next.js app..."
+      npm run dev
+
+  - name: Test Terminal
+    # This task opens a second terminal for the user to work in.
+    # It waits for the app (port 3000) to be ready before prompting the user.
+    init: |
+      echo "Waiting for the application to start on port 3000..."
+      gp sync-await 3000
+    command: |
+      echo "-----------------------------------------------------"
+      echo "Welcome to the Playwright Deep Dive Workshop!"
+      echo "Your app is running and ready."
+      echo "Use this terminal to run your tests."
+      echo "e.g., npx playwright test"
+      echo "-----------------------------------------------------"
+    openMode: split-right
+
+ports:
+  # Expose the Next.js app
+  - port: 3000
+    onOpen: open-browser # Automatically opens the app in a new tab
+    name: Application
+    description: The Next.js test application.
+
+  # Expose the Playwright report port
+  - port: 9323
+    onOpen: ignore
+    name: Playwright Report
+    description: Port for 'npx playwright show-report'
+
+vscode:
+  extensions:
+    - ms-playwright.playwright # Official Playwright extension
+    - ms-python.python # For the Python track
+    - dbaeumer.vscode-eslint # Linting
+    - esbenp.prettier-vscode # Code formatting
