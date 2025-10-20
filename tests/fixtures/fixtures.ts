@@ -1,4 +1,4 @@
-import { test as base, Page } from '@playwright/test';
+import { test as base, expect, Page } from '@playwright/test';
 import * as path from 'path';
 
 // Define the paths to our authentication state files.
@@ -43,10 +43,10 @@ export const test = base.extend<{
   // This is the fixture for the counter app that resets state via API.
   resettablePage: async ({ page, request }, use) => {
     // Before the test runs, we call the API to reset the counter.
-    await request.post('/api/a11/counter', {
+    const resetResponse = await request.post('/api/a11/counter', {
       data: { newCounter: 0 },
     });
-    // Now we provide the standard page object to the test, confident that the state is clean.
+    expect(resetResponse.ok()).toBeTruthy();// Now we provide the standard page object to the test, confident that the state is clean.
     await use(page);
   },
 });
