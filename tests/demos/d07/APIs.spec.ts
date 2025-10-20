@@ -4,7 +4,7 @@ let theButton: Locator;
 let theLabel: Locator;
 test.beforeEach(async ({ page }) => {
   theButton = page.getByRole("button", { name: "Increment" });
-  theLabel = page.getByText("Counter: ");
+  theLabel = page.getByTestId("counter-value");
 });
 
 test("starting from scratch", async ({ page, request }) => {

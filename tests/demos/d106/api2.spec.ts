@@ -20,6 +20,6 @@ test.describe('D112: Hybrid UI and API Testing', () => {
     const data = await response.json();
 
     // 3. Assert that the backend state is correct.
-    expect(data.counter).toBe(initialCount + 1);
+    expect(data.count).toBe(initialCount + 1);
   });
 });

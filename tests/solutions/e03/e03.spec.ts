@@ -32,9 +32,10 @@ test('When typing in the second box, the value appears in the other two', async 
 })
 
 test('After clearing the boxes are empty', async ({page})=>{
-    box1= page.locator('xpath=/html/body/main/section/div/div[1]/div[1]/div/input')
-    box2= page.locator('xpath=/html/body/main/section/div/div[1]/div[2]/div/input')
-    box3= page.locator('xpath=/html/body/main/section/div/div[1]/div[3]/div/input')
+    
+    box1= page.locator('xpath=/html/body/div/div/div/div/div/div/div[1]/div[1]/div/input')
+    box2= page.locator('xpath=/html/body/div/div/div/div/div/div/div[1]/div[2]/div/input')
+    box3= page.locator('xpath=/html/body/div/div/div/div/div/div/div[1]/div[3]/div/input')
     
     await box2.fill('100a')
     await button.click()
