@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, Container, Box } from "@mui/material";
 
@@ -16,7 +16,7 @@ export default function App15() {
               Awesome Cat
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              This is our featured cat of the week. It's designed to be perfect for your needs. Don't be afraid of it.
+              This is our featured cat of the week. It is designed to be perfect for your needs. Do not be afraid of it.
             </Typography>
           </CardContent>
           <CardActions>
