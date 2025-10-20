@@ -41,9 +41,11 @@ next-env.d.ts
 
 playwright/.auth
 .devcontainer/
+.idea/
 
 # Python virtual environment and cache
 .venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+__snapshots__
