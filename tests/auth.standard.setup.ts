@@ -1,7 +1,7 @@
 import { test as setup, expect } from '@playwright/test';
 
 // Define the file where the authentication state will be saved.
-const authFile = 'playwright/.auth/user.json';
+const authFile = 'playwright/.auth/standard_user.json';
 
 setup('authenticate', async ({ page }) => {
   // Navigate to the login page.

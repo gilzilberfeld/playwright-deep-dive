@@ -6,7 +6,7 @@ test.describe('Authenticated Tests', () => {
   //
   // Because the project is configured with `storageState: 'playwright/.auth/user.json'`,
   // this test will start with the browser context already authenticated.
-  test.skip('should be able to access a protected page', async ({ page }) => {
+  test('should be able to access a protected page', async ({ page }) => {
     // We navigate directly to a page that requires login.
     // There are NO login steps in this test.
     await page.goto('https://www.saucedemo.com/inventory.html');
