@@ -1,7 +1,7 @@
 // We import our custom 'test' object which contains all our fixtures.
 import { test, expect } from '../../fixtures/fixtures';
 
-test.describe('S115: Refactored to Use Fixtures', () => {
+test.describe('S110: Refactored to Use Fixtures', () => {
   // This test now explicitly uses the 'standardUserPage' fixture.
   // It is self-contained and no longer relies on global config.
   test.skip('standard user should see the inventory', async ({
