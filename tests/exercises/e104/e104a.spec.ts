@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 /*
   Refer to the "Demos and Exercises Guide" for the task details
-  for exercise E105.
+  for exercise E104.
 */
 
 test.describe("E104a: The Case of the Deceptive Class Name", () => {

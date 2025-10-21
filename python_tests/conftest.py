@@ -55,6 +55,6 @@ def standard_user_page(browser: Browser, standard_user_auth_file: str) -> Page:
 @pytest.fixture
 def resettable_page(page: Page, request: APIRequestContext) -> Page:
     """A fixture that resets the state of app /a11 before the test."""
-    reset_response = request.post('/api/a11/counter', data={'newCounter': 0})
-    assert reset_response.ok()
+    reset_response = page.request.post('/api/a11/counter', data={'newCounter': 0})
+    assert reset_response.ok
     yield page

@@ -5,7 +5,7 @@ import { test, expect } from "@playwright/test";
   for exercise E102b.
 */
 
-test.describe("E103: Visual Test of Hover State", () => {
+test.describe("E102: Visual Test of Hover State", () => {
   test("the button should change appearance on hover", async ({ page }) => {
     // Your test implementation goes here.
   });

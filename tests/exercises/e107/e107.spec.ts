@@ -10,7 +10,7 @@ test.describe('E107: Multi-Role Authentication', () => {
     // This test needs to be run against different user roles.
     // The test logic itself is simple: just check the cart link.
     // The complexity is in the project setup in playwright.config.ts.
-    await page.goto('/inventory.html');
+    await page.goto('https://www.saucedemo.com/inventory.html');
     await expect(page.locator('#shopping_cart_container a')).toBeVisible();
   });
 });
