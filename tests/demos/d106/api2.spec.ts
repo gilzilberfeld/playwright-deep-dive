@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('D112: Hybrid UI and API Testing', () => {
+test.describe('D106: Hybrid UI and API Testing', () => {
   test('should update backend state after UI action', async ({ page }) => {
     await page.goto('/a11');
 

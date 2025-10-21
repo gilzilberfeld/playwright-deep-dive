@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('D111: Pure API Testing', async () => {
+test.describe('D106: Pure API Testing', async () => {
   test('should be able to get and increment the counter', async ({
   request,
 }) => {

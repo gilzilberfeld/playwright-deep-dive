@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('D113: API Mocking - Forcing Error States', () => {
+test.describe('D107: API Mocking - Forcing Error States', () => {
   test('should display an error message when the API fails', async ({ page }) => {
     // We use page.route() to intercept network requests.
     // The first argument is a glob pattern for the URL to intercept.
