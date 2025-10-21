@@ -1,14 +1,15 @@
+[project]
+name = "playwright-deep-dive-tests"
+version = "0.1.0"
+
 [tool.pytest.ini_options]
 # Configure pytest options here
-# https://docs.pytest.org/en/7.1.x/reference/reference.html#configuration-options
-
-# Base URL for Playwright tests (matches the TS config)
 base_url = "http://127.0.0.1:3000"
 
-# You can add other pytest options here later if needed, e.g.:
-# addopts = "-v --headed"
-# testpaths = [
-#     "demos",
-#     "exercises",
-#     "solutions"
-# ]
+
+[tool.setuptools.packages.find]
+# Explicitly tell setuptools where to find packages.
+# We are saying: "Look for packages in the current directory ('.')"
+where = ["."]
+# And include ALL packages you find (e.g., demos, fixtures, exercises, etc.)
+include = ["*"]
