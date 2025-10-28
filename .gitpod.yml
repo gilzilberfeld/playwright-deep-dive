@@ -1,12 +1,16 @@
 # Gitpod configuration for the Playwright Deep Dive Workshop
 
-image: gitpod/workspace-node
-
 tasks:
-  - name: Install & Run App
-    init: |
+  - name: Install Node.js & Dependencies
+    before: |
+      # Install Node.js 18 using official NodeSource setup
+      curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+
+      # Verify installation
       echo "Node version: $(node -v)"
       echo "npm version: $(npm -v)"
+    init: |
       echo "Installing dependencies..."
       npm install
       npx playwright install --with-deps
@@ -15,6 +19,10 @@ tasks:
       npm run dev
 
   - name: Test Terminal
+    before: |
+      # Ensure Node.js is available in this terminal too
+      curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+      sudo apt-get install -y nodejs
     init: |
       echo "Waiting for the application to start on port 3000..."
       gp sync-await 3000
