@@ -1,6 +1,6 @@
 # Gitpod configuration for the Playwright Deep Dive Workshop
 
-image: gitpod/workspace-node:latest
+image: gitpod/workspace-node
 
 tasks:
   - name: Install & Run App
