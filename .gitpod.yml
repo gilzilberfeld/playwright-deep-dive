@@ -3,43 +3,31 @@
 
 tasks:
   - name: Install & Run App
-    init: |
-      echo "Installing Node.js 18..."
-      # Source nvm, which is pre-installed on the Gitpod image
-      source $HOME/.nvm/nvm.sh
+    before: |
+      # Configure nvm for all shells in this task
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
       nvm install 18
       nvm use 18
       nvm alias default 18
-
+    init: |
       echo "Installing dependencies..."
-      # Now npm is in the PATH for this same script
       npm install
       npx playwright install --with-deps
     command: |
       echo "Starting Next.js app..."
-      # We must source nvm again for this new shell session
-      source $HOME/.nvm/nvm.sh
-      nvm use default
       npm run dev
 
   - name: Test Terminal
+    before: |
+      # Configure nvm for this terminal
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+      nvm use default
     init: |
       echo "Waiting for the application to start on port 3000..."
       gp sync-await 3000
-
-      echo "Setting up Node.js for this terminal..."
-      # --- THIS IS THE FIX ---
-      # We must manually add nvm to the .bashrc for the interactive shell
-      # to pick it up when the user gets control.
-      echo '' >> $HOME/.bashrc
-      echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc
-      echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $HOME/.bashrc
     command: |
-      # This command runs *after* init and *before* the user gets the prompt
-      # We must ensure nvm is active here too.
-      source $HOME/.nvm/nvm.sh
-      nvm use default
-
       echo "-----------------------------------------------------"
       echo "Welcome to the Playwright Deep Dive Workshop!"
       echo "Your app is running and ready."
