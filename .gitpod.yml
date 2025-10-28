@@ -1,48 +1,64 @@
 # Gitpod configuration for the Playwright Deep Dive Workshop
+# This file automates the setup for attendees (Plan A).
+
+# --- ADDED THIS LINE ---
+# Explicitly define the base image to try and fix provisioning
+image: gitpod/workspace-full
 
 tasks:
-  - name: Install Node.js & Dependencies
-    before: |
-      # Install Node.js 18 using official NodeSource setup
-      curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-      sudo apt-get install -y nodejs
-
-      # Verify installation
-      echo "Node version: $(node -v)"
-      echo "npm version: $(npm -v)"
+  - name: Install & Run App
     init: |
+      echo "Installing Node.js 18..."
+      # Source nvm, which is pre-installed on the Gitpod image
+      source $HOME/.nvm/nvm.sh
+      nvm install 18
+      nvm use 18
+      nvm alias default 18
+
       echo "Installing dependencies..."
+      # Now npm is in the PATH for this same script
       npm install
       npx playwright install --with-deps
     command: |
       echo "Starting Next.js app..."
+      # We must source nvm again for this new shell session
+      source $HOME/.nvm/nvm.sh
+      nvm use default
       npm run dev
 
   - name: Test Terminal
-    before: |
-      # Ensure Node.js is available in this terminal too
-      curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-      sudo apt-get install -y nodejs
     init: |
       echo "Waiting for the application to start on port 3000..."
       gp sync-await 3000
+
+      echo "Setting up Node.js for this terminal..."
+      # We must manually add nvm to the .bashrc for the interactive shell
+      # to pick it up when the user gets control.
+      echo '' >> $HOME/.bashrc
+      echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc
+      echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $HOME/.bashrc
     command: |
+      # This command runs *after* init and *before* the user gets the prompt
+      # We must ensure nvm is active here too.
+      source $HOME/.nvm/nvm.sh
+      nvm use default
+
       echo "-----------------------------------------------------"
       echo "Welcome to the Playwright Deep Dive Workshop!"
       echo "Your app is running and ready."
-      echo "Node version: $(node -v)"
-      echo "npm version: $(npm -v)"
       echo "Use this terminal to run your tests."
-      echo "e.g., npx playwright test"
+      echo "e.g., npx playwright test (Node version: $(node -v))"
       echo "-----------------------------------------------------"
     openMode: split-right
 
 ports:
+  # Expose the Next.js app
   - port: 3000
-    onOpen: open-browser
+    onOpen: open-browser # Automatically opens the app in a new tab
     name: Application
     description: The Next.js test application.
 
+  # Expose the Playwright report port
   - port: 9323
     onOpen: ignore
     name: Playwright Report
@@ -50,7 +66,7 @@ ports:
 
 vscode:
   extensions:
-    - ms-playwright.playwright
-    - ms-python.python
-    - dbaeumer.vscode-eslint
-    - esbenp.prettier-vscode
+    - ms-playwright.playwright # Official Playwright extension
+    - ms-python.python # For the Python track
+    - dbaeumer.vscode-eslint # Linting
+    - esbenp.prettier-vscode # Code formatting
