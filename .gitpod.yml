@@ -1,11 +1,12 @@
 # Gitpod configuration for the Playwright Deep Dive Workshop
 
-image:
-  file: .gitpod.Dockerfile
+image: gitpod/workspace-node:latest
 
 tasks:
   - name: Install & Run App
     init: |
+      echo "Node version: $(node -v)"
+      echo "npm version: $(npm -v)"
       echo "Installing dependencies..."
       npm install
       npx playwright install --with-deps
@@ -21,8 +22,10 @@ tasks:
       echo "-----------------------------------------------------"
       echo "Welcome to the Playwright Deep Dive Workshop!"
       echo "Your app is running and ready."
+      echo "Node version: $(node -v)"
+      echo "npm version: $(npm -v)"
       echo "Use this terminal to run your tests."
-      echo "e.g., npx playwright test (Node version: $(node -v))"
+      echo "e.g., npx playwright test"
       echo "-----------------------------------------------------"
     openMode: split-right
 
