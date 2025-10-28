@@ -3,11 +3,9 @@
 
 tasks:
   - name: Install & Run App
-    # 'init' runs on workspace start.
     init: |
       echo "Installing Node.js 18..."
-      # nvm is pre-installed on the default Gitpod image.
-      # We just need to source it, then use it.
+      # Source nvm, which is pre-installed on the Gitpod image
       source $HOME/.nvm/nvm.sh
       nvm install 18
       nvm use 18
@@ -28,15 +26,26 @@ tasks:
     init: |
       echo "Waiting for the application to start on port 3000..."
       gp sync-await 3000
+
+      echo "Setting up Node.js for this terminal..."
+      # --- THIS IS THE NEW FIX ---
+      # We must manually add nvm to the .bashrc for the interactive shell
+      # to pick it up when the user gets control.
+      echo '' >> $HOME/.bashrc
+      echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc
+      echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $HOME/.bashrc
     command: |
+      # This command runs *after* init and *before* the user gets the prompt
+      # We must ensure nvm is active here too.
+      source $HOME/.nvm/nvm.sh
+      nvm use default
+
       echo "-----------------------------------------------------"
       echo "Welcome to the Playwright Deep Dive Workshop!"
       echo "Your app is running and ready."
       echo "Use this terminal to run your tests."
-      echo "e.g., npx playwright test"
+      echo "e.g., npx playwright test (Node version: $(node -v))"
       echo "-----------------------------------------------------"
-      # The user's interactive shell will automatically source .bashrc,
-      # which loads nvm, which will use the 'default' alias.
     openMode: split-right
 
 ports:
