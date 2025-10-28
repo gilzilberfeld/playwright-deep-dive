@@ -1,15 +1,10 @@
 # Gitpod configuration for the Playwright Deep Dive Workshop
-# This file automates the setup for attendees (Plan A).
+
+image:
+  file: .gitpod.Dockerfile
 
 tasks:
   - name: Install & Run App
-    before: |
-      # Configure nvm for all shells in this task
-      export NVM_DIR="$HOME/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-      nvm install 18
-      nvm use 18
-      nvm alias default 18
     init: |
       echo "Installing dependencies..."
       npm install
@@ -19,11 +14,6 @@ tasks:
       npm run dev
 
   - name: Test Terminal
-    before: |
-      # Configure nvm for this terminal
-      export NVM_DIR="$HOME/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-      nvm use default
     init: |
       echo "Waiting for the application to start on port 3000..."
       gp sync-await 3000
@@ -37,13 +27,11 @@ tasks:
     openMode: split-right
 
 ports:
-  # Expose the Next.js app
   - port: 3000
-    onOpen: open-browser # Automatically opens the app in a new tab
+    onOpen: open-browser
     name: Application
     description: The Next.js test application.
 
-  # Expose the Playwright report port
   - port: 9323
     onOpen: ignore
     name: Playwright Report
@@ -51,7 +39,7 @@ ports:
 
 vscode:
   extensions:
-    - ms-playwright.playwright # Official Playwright extension
-    - ms-python.python # For the Python track
-    - dbaeumer.vscode-eslint # Linting
-    - esbenp.prettier-vscode # Code formatting
+    - ms-playwright.playwright
+    - ms-python.python
+    - dbaeumer.vscode-eslint
+    - esbenp.prettier-vscode
