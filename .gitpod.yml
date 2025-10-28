@@ -2,31 +2,29 @@
 # This file automates the setup for attendees (Plan A).
 
 tasks:
-tasks:
   - name: Install & Run App
-    # ADDED 'before' block to install Node.js
-    before: |
-      echo "Installing Node.js..."
-      nvm install 18 # Installs Node.js version 18 (LTS)
+    # 'init' runs on workspace start.
+    init: |
+      echo "Installing Node.js 18..."
+      # nvm is pre-installed on the default Gitpod image.
+      # We just need to source it, then use it.
+      source $HOME/.nvm/nvm.sh
+      nvm install 18
       nvm use 18
       nvm alias default 18
-      echo "Node.js installed:"
-      node -v
-      npm -v
-    # 'init' runs after 'before'
-    init: |
+
       echo "Installing dependencies..."
+      # Now npm is in the PATH for this same script
       npm install
       npx playwright install --with-deps
     command: |
       echo "Starting Next.js app..."
+      # We must source nvm again for this new shell session
+      source $HOME/.nvm/nvm.sh
+      nvm use default
       npm run dev
 
   - name: Test Terminal
-    # ADDED 'before' block here too, to ensure Node is available
-    before: |
-      echo "Ensuring Node.js is available..."
-      nvm use default # Ensures the terminal uses the default Node version
     init: |
       echo "Waiting for the application to start on port 3000..."
       gp sync-await 3000
@@ -37,6 +35,8 @@ tasks:
       echo "Use this terminal to run your tests."
       echo "e.g., npx playwright test"
       echo "-----------------------------------------------------"
+      # The user's interactive shell will automatically source .bashrc,
+      # which loads nvm, which will use the 'default' alias.
     openMode: split-right
 
 ports:
