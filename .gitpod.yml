@@ -28,7 +28,7 @@ tasks:
       gp sync-await 3000
 
       echo "Setting up Node.js for this terminal..."
-      # --- THIS IS THE NEW FIX ---
+      # --- THIS IS THE FIX ---
       # We must manually add nvm to the .bashrc for the interactive shell
       # to pick it up when the user gets control.
       echo '' >> $HOME/.bashrc
