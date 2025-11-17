@@ -14,7 +14,8 @@ export default defineConfig({
   /* Shared settings for all the projects below. */
   use: {
     /* Base URL for "Plan C" (Full Local) */
-    baseURL: 'http://127.0.0.1:3000',
+    // baseURL: 'http://127.0.0.1:3000',
+    baseURL: 'https://playwright-deep-dive.vercel.app/',
     trace: 'on-first-retry',
   },
 

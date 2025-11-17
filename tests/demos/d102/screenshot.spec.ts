@@ -24,13 +24,13 @@ test.describe("D102: Visual Testing with Masking", () => {
     await page.goto("/a16");
 
     const productCard = page.locator("div.MuiCard-root");
-    const productImage = productCard.locator(".MuiCardMedia-root");
+    const descriptionImage = page.getByLabel("Cat Description");
 
     // We can tell Playwright to "mask" multiple elements by passing their locators
     // in an array. This is perfect for handling dynamic images, ads, or user-generated content
     // in addition to the editable text field.
     await expect(productCard).toHaveScreenshot("product-with-mask.png", {
-      mask: [productImage],
+      mask: [descriptionImage],
     });
   });
 });
