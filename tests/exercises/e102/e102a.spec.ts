@@ -6,7 +6,7 @@ import { test, expect } from "@playwright/test";
 */
 
 test.describe("E102: Visual Test with Masking", () => {
-  test("the product card should be visually correct, ignoring the description", async ({ page }) => {
+  test("the cat card should be visually correct, ignoring the image", async ({ page }) => {
     // Your test implementation goes here.
   });
 });
