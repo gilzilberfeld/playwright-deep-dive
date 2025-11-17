@@ -4,8 +4,8 @@ version = "0.1.0"
 
 [tool.pytest.ini_options]
 # Configure pytest options here
-base_url = "http://127.0.0.1:3000"
-
+# base_url = "http://127.0.0.1:3000"
+base_url = "https://playwright-deep-dive.vercel.app/"
 
 
 [tool.setuptools.packages.find]
