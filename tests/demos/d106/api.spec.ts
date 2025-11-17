@@ -15,6 +15,8 @@ test.describe('D106: Pure API Testing', async () => {
   console.log(`Initial count: ${initialCount}`);
 
   // 2. Increment the value.
+  // Without request body, the value is incremented
+  // With a body containing newCounter, it is set to that value
   const postResponse = await request.post('/api/a11/counter');
   expect(postResponse.ok()).toBeTruthy();
   const incrementedData = await postResponse.json();

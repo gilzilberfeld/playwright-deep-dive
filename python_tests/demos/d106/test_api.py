@@ -7,8 +7,6 @@ def test_should_be_able_to_get_and_increment_the_counter(page: Page):
     # configured with the base_url from pyproject.toml.
     api_request_context = page.request
 
-    # --- The rest of your test logic remains the same ---
-
     # 1. Get the initial value.
     get_response = api_request_context.get('/api/a11/counter')
     assert get_response.ok
@@ -17,6 +15,8 @@ def test_should_be_able_to_get_and_increment_the_counter(page: Page):
     print(f"Initial count: {initial_count}")
 
     # 2. Increment the value.
+    # Without request body, the value is incremented
+    # With a body containing newCounter, it is set to that value
     post_response = api_request_context.post('/api/a11/counter')
     assert post_response.ok
     incremented_data = post_response.json()

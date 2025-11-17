@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
 import { getCounter, incrementCounter, setCounter } from "./state_management";
 
+// Retrieves the current counter value
 export async function GET() {
   console.log("GET /api/a11/counter - current counter:", getCounter);
   return NextResponse.json({ count: getCounter() });
 }
 
+// If the request body has a newCounter value, it is set as the counter
+// If not, the counter value is incremented
 export async function POST(req: Request) {
   try {
     console.log("POST /api/a11/counter - current counter:", getCounter);
